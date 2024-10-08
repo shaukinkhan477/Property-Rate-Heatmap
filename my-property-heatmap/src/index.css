@@ -1,0 +1,424 @@
+/* Style the container that holds all dropdowns */
+.dropdowns-overlay {
+  position: sticky;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  width: 90%;
+  top: 8px; 
+  left: 615px; 
+  /* margin-left: 10px; */
+  transform: translateX(-50%); 
+  z-index: 1000;
+  display: flex;
+  /* Allow the row to wrap if needed */
+  gap: 20px; 
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Style each label */
+.dropdowns-overlay label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+/* Style each select dropdown */
+.dropdowns-overlay select {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 2px solid #007bff;
+  background-color: #f9f9f9;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dropdowns-overlay select:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+/* Graphs overlay */
+.graph-overlay {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  z-index: 1001;
+  padding: 10px;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+/* Flexbox to display both graphs side by side */
+.comparison-graphs {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.graph-container {
+  flex: 1;
+  max-width: 470px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Close button for each graph */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  margin-left:450px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
+
+/* Filter box with glassmorphism effect */
+.filter-box {
+  position: absolute;
+  left: -320px; /* Hidden initially */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  background: rgba(255, 255, 255, 0.7); 
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  padding: 20px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); 
+  border-radius: 12px; 
+  transition: left 0.5s ease-in-out; 
+  z-index: 1000;
+}
+
+.filter-box.slide-in {
+  left: 10px;
+}
+
+/* Headings inside filter box */
+.filter-box h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* Labels and inputs in the filter box */
+.filter-box label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.filter-box select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 123, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add focus effect for dropdown */
+.filter-box select:focus {
+  border-color: rgba(0, 123, 255, 1);
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Close button for filter box */
+.filter-box .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.filter-box .close-btn:hover {
+  color: #ff4c4c; 
+}
+
+/* Add subtle hover effect to dropdowns */
+.filter-box select:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Add spacing between elements in filter box */
+.filter-box div {
+  margin-bottom: 15px;
+}
+
+/* Make the overall dropdown box more user-friendly */
+.filter-box input, .filter-box select {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Add smooth transition effect when hovering over the box */
+.filter-box:hover {
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+
+
+/* General Popup Styling */
+.leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.9); /* Light transparent background */
+  padding: 15px;
+  border-radius: 10px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  color: #333; 
+  font-family: 'Arial', sans-serif;
+}
+
+/* Popup Header (Location Name) */
+.leaflet-popup-content strong {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff; 
+  display: block;
+  margin-bottom: 10px; 
+}
+
+/* Popup Content (Price Details) */
+.leaflet-popup-content {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Inline price information with year and price on the same line */
+.leaflet-popup-content .price-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+/* Year styling */
+.leaflet-popup-content .price-row .year {
+  font-weight: normal;
+  color: #333;
+}
+
+/* Price Highlight */
+.leaflet-popup-content .price-row .price-highlight {
+  color: #28a745; 
+  font-weight: bold;
+}
+
+/* Popup Arrow styling */
+.leaflet-popup-tip-container {
+  display: none;
+}
+
+/* Styling the close button */
+.leaflet-popup-close-button {
+  color: #333;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #ff4c4c; 
+}
+
+/* Optional: Add hover effect to popup */
+.leaflet-popup:hover {
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+.price-legend {
+  position: absolute;
+  top: 80%;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 180px;
+  font-family: Arial, sans-serif;
+}
+
+.price-legend h4 {
+  margin: 0;
+  padding-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.price-legend ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.price-legend li {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 3px;
+}
+
+.legend-color.blue {
+  background-color: blue;
+}
+
+.legend-color.green {
+  background-color: green;
+}
+
+.legend-color.yellow {
+  background-color: yellow;
+}
+
+.legend-color.orange {
+  background-color: orange;
+}
+
+.legend-color.red {
+  background-color: red;
+}
+
+
+
+/* Custom Zoom Control */
+.leaflet-control-zoom {
+  position: absolute;
+  bottom: 500px; /* 30% from the top */
+  right: 4px; /* Distance from the right */
+  background-color: #fff; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+  overflow: hidden; /* Ensures the buttons don't overflow */
+  z-index: 1000; /* Ensure it stays above other map elements */
+}
+
+/* Style for the Zoom In and Zoom Out buttons */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  display: block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  background-color: #f9f9f9;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Remove the bottom border for the last button */
+.leaflet-control-zoom-out {
+  border-bottom: none;
+}
+
+/* Hover effects for buttons */
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background-color: #007bff; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+/* Active/Focus styles */
+.leaflet-control-zoom-in:active,
+.leaflet-control-zoom-out:active {
+  background-color: #0056b3; /* Darker blue for active state */
+  color: #fff;
+}
+
+
+
+/* .properties-list {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30%;
+  height: 100%;
+  background-color: #fff;
+  overflow-y: auto;
+  padding: 10px;
+  box-shadow: -2px 0px 10px rgba(0,0,0,0.1);
+} */
+
+.properties-list h3 {
+  margin-top: 65px;
+}
+
+.property-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.property-item h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.property-item p {
+  font-size: 14px;
+  margin: 5px 0 0;
+}
+
+.leaflet-control-layers-toggle {
+  /* position: absolute; */
+  /* margin-top: 60px; */
+  
+}
+
+
+
+
