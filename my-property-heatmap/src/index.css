@@ -1,22 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* Style the container that holds all dropdowns */
 .dropdowns-overlay {
-  position: sticky;
-  background-color: rgba(255, 255, 255, 0.8);
+  /* position: sticky; */
+  /* background-color: rgba(255, 255, 255, 0.8); */
   position: absolute;
   width: 90%;
-  top: 8px; 
-  left: 615px; 
+  top: 8px;
+  left: 700px;
   /* margin-left: 10px; */
-  transform: translateX(-50%); 
+  transform: translateX(-50%);
   z-index: 1000;
   display: flex;
   /* Allow the row to wrap if needed */
-  gap: 20px; 
+  gap: 20px;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); */
 }
 
+.toggle-btn {
+  background-color: #656665;
+  padding: 8px 14px 8px 14px;
+  border-radius: 8px;
+  font-size: small;
+  color: white;
+  /* font: bold; */
+  font-weight: bold;
+}
+
+.toggle-btn:hover {
+  background-color: #14532d;
+  font-size: medium;
+  /* font-style: italic; */
+
+  border-radius: 12px;
+}
 /* Style each label */
 .dropdowns-overlay label {
   font-weight: bold;
@@ -29,7 +49,7 @@
   padding: 8px;
   font-size: 14px;
   border-radius: 4px;
-  border: 2px solid #007bff;
+  border: 2px solid #14532d;
   background-color: #f9f9f9;
   color: #333;
   outline: none;
@@ -37,10 +57,9 @@
 }
 
 .dropdowns-overlay select:focus {
-  border-color: #0056b3;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #14532d;
+  /* box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); */
 }
-
 
 /* Graphs overlay */
 .graph-overlay {
@@ -76,7 +95,7 @@
 .close-btn {
   position: absolute;
   top: 10px;
-  margin-left:450px;
+  margin-left: 450px;
   background: none;
   border: none;
   font-size: 18px;
@@ -87,7 +106,6 @@
   color: red;
 }
 
-
 /* Filter box with glassmorphism effect */
 .filter-box {
   position: absolute;
@@ -95,14 +113,14 @@
   top: 50%;
   transform: translateY(-50%);
   width: 300px;
-  background: rgba(255, 255, 255, 0.7); 
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(10px); 
-  -webkit-backdrop-filter: blur(10px); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 20px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); 
-  border-radius: 12px; 
-  transition: left 0.5s ease-in-out; 
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  transition: left 0.5s ease-in-out;
   z-index: 1000;
 }
 
@@ -160,7 +178,7 @@
 }
 
 .filter-box .close-btn:hover {
-  color: #ff4c4c; 
+  color: #ff4c4c;
 }
 
 /* Add subtle hover effect to dropdowns */
@@ -174,7 +192,8 @@
 }
 
 /* Make the overall dropdown box more user-friendly */
-.filter-box input, .filter-box select {
+.filter-box input,
+.filter-box select {
   padding: 10px;
   font-size: 14px;
   width: 100%;
@@ -187,26 +206,23 @@
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
 }
 
-
-
-
 /* General Popup Styling */
 .leaflet-popup-content-wrapper {
   background: rgba(255, 255, 255, 0.9); /* Light transparent background */
   padding: 15px;
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  color: #333; 
-  font-family: 'Arial', sans-serif;
+  color: #333;
+  font-family: "Arial", sans-serif;
 }
 
 /* Popup Header (Location Name) */
 .leaflet-popup-content strong {
   font-size: 18px;
   font-weight: bold;
-  color: #007bff; 
+  color: #007bff;
   display: block;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 /* Popup Content (Price Details) */
@@ -231,7 +247,7 @@
 
 /* Price Highlight */
 .leaflet-popup-content .price-row .price-highlight {
-  color: #28a745; 
+  color: #28a745;
   font-weight: bold;
 }
 
@@ -255,7 +271,7 @@
 }
 
 .leaflet-popup-close-button:hover {
-  color: #ff4c4c; 
+  color: #ff4c4c;
 }
 
 /* Optional: Add hover effect to popup */
@@ -263,17 +279,14 @@
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
 }
 
-
-
-
 .price-legend {
   position: absolute;
-  top: 80%;
-  left: 10px;
+  top: 85%;
+  left: 7px;
   transform: translateY(-50%);
   background-color: white;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   width: 180px;
@@ -328,8 +341,6 @@
   background-color: red;
 }
 
-
-
 /* Custom Zoom Control */
 .leaflet-control-zoom {
   position: absolute;
@@ -379,8 +390,6 @@
   color: #fff;
 }
 
-
-
 /* .properties-list {
   position: absolute;
   right: 0;
@@ -416,9 +425,4 @@
 .leaflet-control-layers-toggle {
   /* position: absolute; */
   /* margin-top: 60px; */
-  
 }
-
-
-
-
