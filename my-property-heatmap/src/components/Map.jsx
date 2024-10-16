@@ -34,11 +34,27 @@ const getColorByPrice = (price) => {
   return 'blue'; // Default color for lower prices
 };
 
-const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick }) => {
+
+
+const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick, selectedCity }) => {
   const [clickedLocations, setClickedLocations] = useState([]); // Track two clicked locations
   const [showLegend, setShowLegend] = useState(false); // Show or hide the price legend
   const [selectedCityProperties, setSelectedCityProperties] = useState([]); // To store properties for a selected city or location
   const [selectedLocationProperties, setSelectedLocationProperties] = useState([]); // To store properties for a selected location
+  const [filterStatus, setFilterStatus] = useState([]);
+  const [showFilter, setShowFilter] = useState(false); // Initially hidden
+
+
+ //Property Filter chnages  
+ const handleStatusFilterChange = (value) => {
+  setFilterStatus(value); // Set the filter to the selected status
+};
+
+const filteredProperties = (selectedLocationProperties.length > 0 ? selectedLocationProperties : selectedCityProperties).filter(
+    (property) => filterStatus.length === 0 || filterStatus.includes(property.status)
+  );
+
+
 
   // Function to handle polygon click
   const handlePolygonClick = (location) => {
@@ -49,6 +65,7 @@ const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick })
     });
     setShowLegend(true); // Show the legend when a location is clicked
     setSelectedLocationProperties(location.properties || []); // Set properties for the selected location
+    setShowFilter(true); // Show the status filter dropdown
   };
 
   // Function to handle marker click
@@ -116,7 +133,7 @@ const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick })
   };
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex' }}>     
       {/* Map Section */}
       <MapContainer center={mapCenter} zoom={zoomLevel} style={{ height: '700px', width: '70%' }} zoomControl={false}>
         <LayersControl position="topright">
@@ -159,7 +176,7 @@ const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick })
             positions={location.coords}
             color={getColorByPrice(location.prices.current)}
             fillColor={getColorByPrice(location.prices.current)}
-            fillOpacity={0.5}
+            fillOpacity={1}
             weight={2}
             eventHandlers={{ click: () => handlePolygonClick(location) }}
           >
@@ -184,6 +201,9 @@ const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick })
                 <span className="year">Current Price:</span>
                 <span className="price-highlight">₹{location.prices.current} /Sq.ft</span>
               </div>
+              <div className="price-row message">
+                <span className="year"> <span style={{ fontWeight: "bold" }}>Note: </span>Please Select other location <br></br>  in <span style={{ fontWeight: "bold" }}>{selectedCity}</span> to Compare the Price</span>
+              </div>
             </Popup>
           </Polygon>
         ))}
@@ -200,23 +220,55 @@ const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick })
         )}
       </MapContainer>
 
-      {/* Properties List Section */}
-      <div className="properties-list" style={{ width: '30%', padding: '20px', overflowY: 'scroll' }}>
-        <h3>{selectedLocationProperties.length > 0 ? 'Properties in Selected Location' : 'Properties in Selected City'}</h3>
-        <ul>
-          {(selectedLocationProperties.length > 0 ? selectedLocationProperties : selectedCityProperties).map((property, index) => (
-            <li key={index} className="property-item">
-              <h4>{property.address}</h4>
-              <p>Price: ₹{property.price}</p>
-              <p>{property.bedrooms} Bedrooms | {property.bathrooms} Bathrooms | {property.area} Sq. Ft.</p>
-              <p>Type: {property.type}</p>
-              <p>Status: {property.status}</p>
-              {/* Displaying property image */}
-              <img src={property.image} alt={property.address} style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '10px' }} />
-            </li>
-          ))}
-        </ul>
-      </div>
+
+
+  {/* Properties List Section */}
+<div className="properties-list" style={{ width: '30%', padding: '20px', overflowY: 'scroll' }}>
+  <h3>
+    {selectedLocationProperties.length > 0
+      ? `Properties in ${clickedLocations[0]?.name}, ${selectedCity || 'Selected City'}`
+      : 'Please Select a Location in a City to See Properties'}
+  </h3>
+
+  {/* Status Filter Dropdown - Initially Hidden */}
+  {showFilter && ( // Conditional rendering for the dropdown
+    <div className="status-filter-container">
+      <select
+        id="status-filter"
+        value={filterStatus}
+        onChange={(e) => handleStatusFilterChange(e.target.value)} // Handle dropdown change
+      >
+        <option value="">Filter by Status</option> {/* Option for showing all properties */}
+        <option value="For Sale">For Sale</option>
+        <option value="For Rent">For Rent</option>
+      </select>
+    </div>
+  )}
+
+  <ul>
+    {filteredProperties.map((property, index) => (
+      <li key={index} className="property-item">
+        <h4>{property.address}</h4>
+        <p>Price: ₹{property.price}</p>
+        <p>
+          {property.bedrooms} Bedrooms | {property.bathrooms} Bathrooms | {property.area} Sq. Ft.
+        </p>
+        <p>Type: {property.type}</p>
+        <p>Status: {property.status}</p>
+        {/* Displaying property image */}
+        <img
+          src={property.image}
+          alt={property.address}
+          style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '10px' }}
+        />
+      </li>
+    ))}
+  </ul>
+</div>
+
+
+
+
 
       {/* Price Legend */}
       {showLegend && (

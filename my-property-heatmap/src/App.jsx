@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import "./ChartSetup"; // Import the Chart.js setup
 import { CityData, cityCoordinates } from "./components/CityData";
 
+
 // India's approximate center
 const indiaCenter = [20.5937, 78.9629];
 
@@ -11,6 +12,7 @@ const App = () => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [mapCenter, setMapCenter] = useState(indiaCenter);
   const [zoomLevel, setZoomLevel] = useState(5);
+  const [filterCriteria, setFilterCriteria] = useState([]); // Store multiple filter criteria
 
   // State for comparing cities and locations
   const [compareCity1, setCompareCity1] = useState(null);
@@ -58,7 +60,7 @@ const App = () => {
     const city = event.target.value;
     setSelectedCity(city);
     setMapCenter(cityCoordinates[city]);
-    setZoomLevel(12);
+    setZoomLevel(11);
     setShowFilter(true); // Show filter dropdown when a city is selected
     setShowLegend(true); // Show the legend when a city is selected
   };
@@ -78,19 +80,33 @@ const App = () => {
 
   // Handle filter change
   const handleFilterChange = (event) => {
-    setFilter(event.target.value);
+    const { value, checked } = event.target;
+    setFilterCriteria((prevFilters) =>
+      checked ? [...prevFilters, value] : prevFilters.filter((filter) => filter !== value)
+    );
   };
 
   // Filter locations based on the selected filter
   const filteredLocations = CityData[selectedCity]?.filter((location) => {
-    if (!filter) return true;
-    if (filter === "mostPopulated") return location.population > 150000;
-    if (filter === "mostFlooded") return location.flooded;
-    if (filter === "mostRainy") return location.rainy;
-    if (filter === "nearHospitals") return location.nearHospitals;
-    if (filter === "nearSchools") return location.nearSchools;
-    if (filter === "mostVisited") return location.mostVisited;
-    return true;
+    if (filterCriteria.length === 0) return true;
+    return filterCriteria.every((filter) => {
+      switch (filter) {
+        case "mostPopulated":
+          return location.population > 150000;
+        case "mostFlooded":
+          return location.flooded;
+        case "mostRainy":
+          return location.rainy;
+        case "nearHospitals":
+          return location.nearHospitals;
+        case "nearSchools":
+          return location.nearSchools;
+        case "mostVisited":
+          return location.mostVisited;
+        default:
+          return true;
+      }
+    });
   });
 
   // Function to generate price comparison data for graph
@@ -171,22 +187,62 @@ const App = () => {
   return (
     <div>
       {/* Filter Dropdown - slides in from the left */}
-      {showFilter && (
+{showFilter && (
         <div className={`filter-box ${showFilter ? "slide-in" : ""}`}>
+          <h3>Filter by:</h3>
           <div>
-            <label htmlFor="filter-select">Filter by: </label>
-            <select id="filter-select" value={filter} onChange={handleFilterChange}>
-              <option value="">Filter Locations By </option>
-              <option value="mostPopulated">Most Populated</option>
-              <option value="mostFlooded">Most Flooded</option>
-              <option value="mostRainy">Most Rainy</option>
-              <option value="nearHospitals">Near Hospitals</option>
-              <option value="nearSchools">Near Schools</option>
-              <option value="mostVisited">Most Visited</option>
-            </select>
+            <label>
+              <input
+                type="checkbox"
+                value="mostPopulated"
+                onChange={handleFilterChange}
+              />
+              Most Populated
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="mostFlooded"
+                onChange={handleFilterChange}
+              />
+              Most Flooded
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="mostRainy"
+                onChange={handleFilterChange}
+              />
+              Most Rainy
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="nearHospitals"
+                onChange={handleFilterChange}
+              />
+              Near Hospitals
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="nearSchools"
+                onChange={handleFilterChange}
+              />
+              Near Schools
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="mostVisited"
+                onChange={handleFilterChange}
+              />
+              Most Visited
+            </label>
           </div>
         </div>
       )}
+
 
       {/* Dropdowns Overlay */}
       <div className="dropdowns-overlay">
@@ -309,10 +365,11 @@ const App = () => {
         mapCenter={mapCenter}
         zoomLevel={zoomLevel}
         cityCoordinates={cityCoordinates}
+        selectedCity={selectedCity} // Pass selectedCity to the Map component
         onMarkerClick={(city) => {
           setSelectedCity(city);
           setMapCenter(cityCoordinates[city]);
-          setZoomLevel(12); // Zoom in when marker is clicked
+          setZoomLevel(11); // Zoom in when marker is clicked
           setShowFilter(true); // Show filter dropdown
         }}
       />

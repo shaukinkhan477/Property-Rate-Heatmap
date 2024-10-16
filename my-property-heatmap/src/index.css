@@ -92,9 +92,9 @@
 .filter-box {
   position: absolute;
   left: -320px; /* Hidden initially */
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
-  width: 300px;
+  /* width: 300px; */
   background: rgba(255, 255, 255, 0.7); 
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px); 
@@ -116,37 +116,35 @@
   margin-bottom: 15px;
   font-weight: bold;
   color: #333;
-  text-align: center;
+  /* text-align: center; */
 }
 
-/* Labels and inputs in the filter box */
+/* Labels inside the filter box */
 .filter-box label {
   font-weight: bold;
   font-size: 14px;
   color: #555;
   margin-bottom: 8px;
-  display: block;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
-.filter-box select {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
+/* Checkbox styling */
+.filter-box input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2); /* Makes checkboxes slightly larger */
+}
+
+/* Subtle hover effect on checkboxes */
+.filter-box label:hover {
+  background-color: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
-  border: 1px solid rgba(0, 123, 255, 0.4);
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #333;
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 1px;
+  /* transition: background-color 0.3s ease; */
 }
 
-/* Add focus effect for dropdown */
-.filter-box select:focus {
-  border-color: rgba(0, 123, 255, 1);
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-}
-
-/* Close button for filter box */
+/* Close button */
 .filter-box .close-btn {
   position: absolute;
   top: 10px;
@@ -160,34 +158,18 @@
 }
 
 .filter-box .close-btn:hover {
-  color: #ff4c4c; 
+  color: #ff4c4c;
 }
 
-/* Add subtle hover effect to dropdowns */
-.filter-box select:hover {
-  background-color: rgba(255, 255, 255, 1);
-}
-
-/* Add spacing between elements in filter box */
+/* Add spacing between each checkbox group */
 .filter-box div {
   margin-bottom: 15px;
 }
 
-/* Make the overall dropdown box more user-friendly */
-.filter-box input, .filter-box select {
-  padding: 10px;
-  font-size: 14px;
-  width: 100%;
-  margin-top: 5px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Add smooth transition effect when hovering over the box */
+/* Box shadow effect on hover */
 .filter-box:hover {
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
 }
-
-
 
 
 /* General Popup Styling */
@@ -381,19 +363,20 @@
 
 
 
-/* .properties-list {
+.properties-list {
   position: absolute;
   right: 0;
   top: 0;
   width: 30%;
   height: 100%;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   overflow-y: auto;
   padding: 10px;
   box-shadow: -2px 0px 10px rgba(0,0,0,0.1);
-} */
+}
 
 .properties-list h3 {
+  margin-left: 24px;
   margin-top: 65px;
 }
 
@@ -413,11 +396,31 @@
   margin: 5px 0 0;
 }
 
-.leaflet-control-layers-toggle {
-  /* position: absolute; */
-  /* margin-top: 60px; */
-  
+
+
+
+#status-filter {
+  padding: 10px;
+  margin-top: 0px; /* Adjust margins */
+  font-size: 16px;
+  margin-left: 22px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  appearance: none; /* Remove default dropdown arrow */
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
+
+#status-filter:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+
 
 
 
