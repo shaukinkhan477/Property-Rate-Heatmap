@@ -17,6 +17,8 @@
   gap: 20px;
   padding: 10px;
   border-radius: 10px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); */
 }
 
@@ -114,7 +116,7 @@
   transform: translateY(-50%);
   width: 300px;
   background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 2px solid #14532d;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 20px;
@@ -125,7 +127,7 @@
 }
 
 .filter-box.slide-in {
-  left: 10px;
+  left: 2px;
 }
 
 /* Headings inside filter box */
@@ -140,8 +142,11 @@
 /* Labels and inputs in the filter box */
 .filter-box label {
   font-weight: bold;
-  font-size: 14px;
-  color: #555;
+  font-size: 15px;
+  /* color: #555; */
+  color: #166534;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   margin-bottom: 8px;
   display: block;
 }
@@ -151,9 +156,12 @@
   padding: 10px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid rgba(0, 123, 255, 0.4);
+  /* border: 1px solid rgba(0, 123, 255, 0.4); */
+  border: 2px solid #14532d;
   background-color: rgba(255, 255, 255, 0.8);
-  color: #333;
+  color: black;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -247,7 +255,7 @@
 
 /* Price Highlight */
 .leaflet-popup-content .price-row .price-highlight {
-  color: #28a745;
+  color: #048923;
   font-weight: bold;
 }
 
@@ -344,7 +352,8 @@
 /* Custom Zoom Control */
 .leaflet-control-zoom {
   position: absolute;
-  bottom: 500px; /* 30% from the top */
+  top: 70px;
+  /* bottom: 560px; 30% from the top */
   right: 4px; /* Distance from the right */
   background-color: #fff; /* Background color */
   border-radius: 8px; /* Rounded corners */
@@ -402,6 +411,32 @@
   box-shadow: -2px 0px 10px rgba(0,0,0,0.1);
 } */
 
+/*Cistom Layer style  */
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: 34px;
+  height: 40px;
+  border-radius: 15px;
+  position: absolute;
+  top: 150px; /* 30% from the top */
+  right: 4px; /* Distance from the right */
+  background-color: #fff; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+  overflow: hidden; /* Ensures the buttons don't overflow */
+  z-index: 1000;
+}
+
+.leaflet-control-layers-expanded {
+  top: 150px;
+  right: 4px;
+  cursor: pointer;
+  background-color: green;
+  border-radius: 8px;
+  color: white;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
 .properties-list h3 {
   margin-top: 65px;
 }
@@ -420,9 +455,4 @@
 .property-item p {
   font-size: 14px;
   margin: 5px 0 0;
-}
-
-.leaflet-control-layers-toggle {
-  /* position: absolute; */
-  /* margin-top: 60px; */
 }

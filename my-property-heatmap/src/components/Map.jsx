@@ -145,7 +145,7 @@ const Map = ({
         style={{ height: "700px", width: "70%" }}
         zoomControl={false}
       >
-        <ZoomControl position="bottomright" />
+        <ZoomControl position="topright" />
         <SetMapView center={mapCenter} zoom={zoomLevel} />
 
         <LayersControl position="topright">
@@ -183,6 +183,7 @@ const Map = ({
               offset={[0, -10]}
               opacity={1}
               permanent={false}
+              className="rounded-lg py-1 px-2"
             >
               <span>{city}</span>
             </Tooltip>
@@ -204,32 +205,45 @@ const Map = ({
               offset={[0, -10]}
               opacity={1}
               permanent={false}
+              className="rounded-xl"
             >
-              <span>{location.name}</span>
+              <span className="text-center font-bold mb-2">
+                {location.name}
+              </span>
             </Tooltip>
             <Popup>
-              <strong>{location.name}</strong>
+              <strong className="text-center font-bold mb-2">
+                {location.name}
+              </strong>
               <div className="price-row">
-                <span className="year">3 Years Ago:</span>
-                <span className="price-highlight">
+                <span className=" text-black text-center mb-1 font-mono font-bold">
+                  3 Years Ago:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.year1} /Sq.ft
                 </span>
               </div>
               <div className="price-row">
-                <span className="year">2 Years Ago:</span>
-                <span className="price-highlight">
+                <span className="text-black text-center mb-1 font-mono font-bold">
+                  2 Years Ago:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.year2} /Sq.ft
                 </span>
               </div>
               <div className="price-row">
-                <span className="year">1 Year Ago:</span>
-                <span className="price-highlight">
+                <span className="text-black text-center mb-1 font-mono font-bold">
+                  1 Year Ago:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.year3} /Sq.ft
                 </span>
               </div>
               <div className="price-row">
-                <span className="year">Current Price:</span>
-                <span className="price-highlight">
+                <span className="text-black text-center mb-1 font-mono font-bold ">
+                  Current Price:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.current} /Sq.ft
                 </span>
               </div>
@@ -238,12 +252,21 @@ const Map = ({
         ))}
 
         {clickedLocations.length === 2 && (
-          <Popup position={clickedLocations[1].coords[0]}>
+          <Popup
+            position={clickedLocations[1].coords[0]}
+            className="flex-1 w-[356px] bg-white p-2 rounded-lg opacity-95"
+          >
             <div>
-              <h3>Price Comparison</h3>
+              <h3 className="text-center text-green-800 items-center font-bold font-serif tracking-wider text-lg mb-2">
+                Price Comparison
+              </h3>
               <PriceComparisonChart chartData={generateChartData()} />
-              <h4>Recommendation</h4>
-              <p>{generateRecommendation()}</p>
+              <h4 className="text-center font-semibold font-sans text-red-700 text-lg mt-2">
+                Recommendation
+              </h4>
+              <p className="text-center font-bold mb-2">
+                {generateRecommendation()}
+              </p>
             </div>
           </Popup>
         )}
@@ -291,23 +314,30 @@ const Map = ({
 
       {/* Price Legend */}
       {showLegend && (
-        <div className="price-legend">
-          <h4>Current Price (per Sq. Ft.)</h4>
+        <div className="absolute bottom-0 right-[245px] lg:right-[457px] bg-white p-2 shadow-sm z-[1000] w-62 font-serif rounded-tl-xl">
+          <h4 className="font-semibold text-center mb-1">
+            Current Price (/Sq. Ft.)
+          </h4>
           <ul>
             <li>
-              <span className="legend-color blue"></span> Below ₹ 7,000
+              <span className="legend-color blue"></span>{" "}
+              <span className="font-light">Below ₹ 7,000</span>
             </li>
             <li>
-              <span className="legend-color green"></span> ₹ 7,000 - ₹ 10,000
+              <span className="legend-color green"></span>{" "}
+              <span className="font-light">₹ 7,000 - ₹ 10,000</span>
             </li>
             <li>
-              <span className="legend-color yellow"></span> ₹ 10,000 - ₹ 15,000
+              <span className="legend-color yellow"></span>{" "}
+              <span className="font-light">₹ 10,000 - ₹ 15,000</span>
             </li>
             <li>
-              <span className="legend-color orange"></span> ₹ 15,000 - ₹ 20,000
+              <span className="legend-color orange"></span>{" "}
+              <span className="font-light">₹ 15,000 - ₹ 20,000</span>
             </li>
             <li>
-              <span className="legend-color red"></span> ₹ 20,000 & Above
+              <span className="legend-color red"></span>{" "}
+              <span className="font-light">₹ 20,000 & Above</span>
             </li>
           </ul>
         </div>

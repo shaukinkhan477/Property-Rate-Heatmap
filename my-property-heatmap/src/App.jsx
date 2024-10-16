@@ -4,7 +4,8 @@ import { Line } from "react-chartjs-2";
 import "./ChartSetup"; // Import the Chart.js setup
 import { CityData, cityCoordinates } from "./components/CityData";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 // India's approximate center
 const indiaCenter = [20.5937, 78.9629];
 
@@ -116,8 +117,8 @@ const App = () => {
             city1.prices.current,
           ],
           // rgba(75, 192, 192, 1)
-          borderColor: "#14532d",
-          backgroundColor: "white",
+          borderColor: "rgba(75, 192, 192, 1)",
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
           // rgba(75, 192, 192, 0.2)
         },
         {
@@ -129,8 +130,8 @@ const App = () => {
             city2.prices.current,
           ],
           // borderColor: "rgba(153, 102, 255, 1)",
-          borderColor: "#991b1b",
-          backgroundColor: "black",
+          borderColor: "rgba(153, 102, 255, 1)",
+          backgroundColor: "rgba(153, 102, 255, 0.2)",
           // rgba(153, 102, 255, 0.2)
         },
       ],
@@ -200,13 +201,20 @@ const App = () => {
   return (
     <div>
       {/* Filter Dropdown - slides in from the left */}
-      <div className="absolute top-20 left-0 z-[1001] p-1 shadow-sm bg-transparent rounded-lg">
+
+      <div
+        className="absolute top-20 left-0 z-[1001] p-1 -ml-4 shadow-sm bg-transparent rounded-lg"
+        onMouseEnter={() => setShowFilterBy(true)}
+      >
         {showFilter && (
           <button
-            className="hover:bg-green-900  text-white p-1 -ml-2 rounded-full opacity-70 font-serif hover:opacity-90 bg-black "
+            className="hover:bg-green-700 bg-green-900  text-white p-2 rounded-full   font-serif hover:opacity-90 "
             onClick={() => setShowFilterBy(!showFilterBy)}
           >
-            <FilterAltIcon />
+            <span className="ml-4">
+              {showFilterBy ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
+            </span>
+            {/* <FilterAltIcon /> */}
           </button>
         )}
       </div>
@@ -310,7 +318,7 @@ const App = () => {
         )}
 
         {/* Location Dropdowns */}
-        {showLocaCamp && compareCity1 && compareCity2 && (
+        {showComparison && showLocaCamp && compareCity1 && compareCity2 && (
           <>
             <div>
               {/* <label htmlFor="compare-location-1">
@@ -361,9 +369,9 @@ const App = () => {
       </div>
 
       {/* If both cities are selected, display the graphs */}
-      {compareCity1 && compareCity2 && (
+      {showComparison && compareCity1 && compareCity2 && (
         <div className="absolute bottom-0 -ml-1 -mb-1 left-0 w-20 lg:w-80 z-[1001] p-2 shadow-sm bg-transparent rounded-lg">
-          <div className="flex justify-between lg:gap-[393px]">
+          <div className="flex justify-between gap-4 ">
             {compareCity1 && compareCity2 && showCityGraph && (
               <div className="flex-1 bg-white p-2 rounded-lg shadow-sm opacity-95">
                 <button
@@ -394,55 +402,58 @@ const App = () => {
               </div>
             )}
 
-            {compareLocation1 && compareLocation2 && showLocationGraph && (
-              <div className="flex-1 bg-white p-2 rounded-lg shadow-sm opacity-95 ">
-                <button
-                  className="hover:bg-green-900  text-white p-1 px-2 rounded-full opacity-80 font-serif hover:opacity-90 bg-gray-500 ml-72"
-                  onClick={toggleLocalityPopUpCard}
-                >
-                  ✖
-                </button>
-                <h3 className="text-center items-center font-bold font-serif tracking-wider text-lg mb-2">
-                  Location Price Comparison
-                </h3>
-                <h4 className="text-center font-bold font-mono text-green-900 tracking-wider text-xl mb-2">
-                  {compareLocation1} vs{" "}
-                  <span className="text-red-800">{compareLocation2}</span>
-                </h4>
-                <Line
-                  data={generateChartData(
-                    CityData[compareCity1].find(
-                      (loc) => loc.name === compareLocation1
-                    ),
-                    CityData[compareCity2].find(
-                      (loc) => loc.name === compareLocation2
-                    )
-                  )}
-                />
-                <h4 className="text-center font-semibold font-sans text-red-700 text-lg mt-2">
-                  Location Recommendation
-                </h4>
-                <p className="text-center font-bold mb-2">
-                  {generateLocationRecommendation()}
-                </p>
-              </div>
-            )}
+            {showComparison &&
+              compareLocation1 &&
+              compareLocation2 &&
+              showLocationGraph && (
+                <div className="flex-1 bg-white p-2 rounded-lg shadow-sm opacity-95 ">
+                  <button
+                    className="hover:bg-green-900  text-white p-1 px-2 rounded-full opacity-80 font-serif hover:opacity-90 bg-gray-500 ml-72"
+                    onClick={toggleLocalityPopUpCard}
+                  >
+                    ✖
+                  </button>
+                  <h3 className="text-center items-center font-bold font-serif tracking-wider text-lg mb-2">
+                    Location Price Comparison
+                  </h3>
+                  <h4 className="text-center font-bold font-mono text-green-900 tracking-wider text-xl mb-2">
+                    {compareLocation1} vs{" "}
+                    <span className="text-red-800">{compareLocation2}</span>
+                  </h4>
+                  <Line
+                    data={generateChartData(
+                      CityData[compareCity1].find(
+                        (loc) => loc.name === compareLocation1
+                      ),
+                      CityData[compareCity2].find(
+                        (loc) => loc.name === compareLocation2
+                      )
+                    )}
+                  />
+                  <h4 className="text-center font-semibold font-sans text-red-700 text-lg mt-2">
+                    Location Recommendation
+                  </h4>
+                  <p className="text-center font-bold mb-2">
+                    {generateLocationRecommendation()}
+                  </p>
+                </div>
+              )}
           </div>
         </div>
       )}
-      {compareCity1 && compareCity2 && (
+      {showComparison && compareCity1 && compareCity2 && (
         <div className="absolute bottom-0 gap-20 z-[1001] p-2 shadow-sm bg-transparent rounded-lg">
           {!showCityGraph && (
             <button
               className="bg-green-900 text-white py-2 px-3 rounded-xl opacity-95 mb-2 ml-2 font-serif tracking-wider hover:bg-gray-500"
               onClick={toggleCityPopUpCard}
             >
-              show
+              Cities Camp
             </button>
           )}
           {compareLocation1 && compareLocation2 && !showLocationGraph && (
             <button
-              className="bg-green-900 text-white ml-80 lg:ml-[820px] py-2 px-3 rounded-xl opacity-95 mb-2  font-serif tracking-wider hover:bg-gray-500"
+              className="bg-green-900 text-white ml-60 lg:ml-[720px] py-2 px-3 rounded-xl opacity-95 mb-2  font-serif tracking-wider hover:bg-gray-500"
               onClick={toggleLocalityPopUpCard}
             >
               show Location
