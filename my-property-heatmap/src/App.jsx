@@ -5,6 +5,7 @@ import "./ChartSetup"; // Import the Chart.js setup
 import { CityData, cityCoordinates } from "./components/CityData";
 
 
+
 // India's approximate center
 const indiaCenter = [20.5937, 78.9629];
 

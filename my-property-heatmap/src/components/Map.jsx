@@ -1,9 +1,13 @@
+// Map.jsx
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polygon, useMap, Tooltip, ZoomControl, LayersControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import PriceComparisonChart from './PriceComparisonChart'; // Import the chart component
 import 'mapbox-gl-leaflet';
+import PropertiesSection from './PropertiesSection'; // Import the new PropertiesSection component
+import { useNavigate } from 'react-router-dom';
+
 
 const mapboxToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -34,8 +38,6 @@ const getColorByPrice = (price) => {
   return 'blue'; // Default color for lower prices
 };
 
-
-
 const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick, selectedCity }) => {
   const [clickedLocations, setClickedLocations] = useState([]); // Track two clicked locations
   const [showLegend, setShowLegend] = useState(false); // Show or hide the price legend
@@ -44,17 +46,20 @@ const Map = ({ cityData, mapCenter, zoomLevel, cityCoordinates, onMarkerClick, s
   const [filterStatus, setFilterStatus] = useState([]);
   const [showFilter, setShowFilter] = useState(false); // Initially hidden
 
+  //Property Filter changes  
+  const handleStatusFilterChange = (value) => {
+    setFilterStatus(value); // Set the filter to the selected status
+  };
 
- //Property Filter chnages  
- const handleStatusFilterChange = (value) => {
-  setFilterStatus(value); // Set the filter to the selected status
-};
-
-const filteredProperties = (selectedLocationProperties.length > 0 ? selectedLocationProperties : selectedCityProperties).filter(
+  const filteredProperties = (selectedLocationProperties.length > 0 ? selectedLocationProperties : selectedCityProperties).filter(
     (property) => filterStatus.length === 0 || filterStatus.includes(property.status)
   );
 
+const navigate = useNavigate(); // Initialize navigate
 
+  const handleSeeDetails = (property) => {
+    navigate(`/property-details/${property.id}`); // Use navigate to route to the property details page
+  };
 
   // Function to handle polygon click
   const handlePolygonClick = (location) => {
@@ -133,7 +138,7 @@ const filteredProperties = (selectedLocationProperties.length > 0 ? selectedLoca
   };
 
   return (
-    <div style={{ display: 'flex' }}>     
+    <div style={{ display: 'flex' }}>
       {/* Map Section */}
       <MapContainer center={mapCenter} zoom={zoomLevel} style={{ height: '700px', width: '70%' }} zoomControl={false}>
         <LayersControl position="topright">
@@ -220,55 +225,18 @@ const filteredProperties = (selectedLocationProperties.length > 0 ? selectedLoca
         )}
       </MapContainer>
 
-
-
-  {/* Properties List Section */}
-<div className="properties-list" style={{ width: '30%', padding: '20px', overflowY: 'scroll' }}>
-  <h3>
-    {selectedLocationProperties.length > 0
-      ? `Properties in ${clickedLocations[0]?.name}, ${selectedCity || 'Selected City'}`
-      : 'Please Select a Location in a City to See Properties'}
-  </h3>
-
-  {/* Status Filter Dropdown - Initially Hidden */}
-  {showFilter && ( // Conditional rendering for the dropdown
-    <div className="status-filter-container">
-      <select
-        id="status-filter"
-        value={filterStatus}
-        onChange={(e) => handleStatusFilterChange(e.target.value)} // Handle dropdown change
-      >
-        <option value="">Filter by Status</option> {/* Option for showing all properties */}
-        <option value="For Sale">For Sale</option>
-        <option value="For Rent">For Rent</option>
-      </select>
-    </div>
-  )}
-
-  <ul>
-    {filteredProperties.map((property, index) => (
-      <li key={index} className="property-item">
-        <h4>{property.address}</h4>
-        <p>Price: ₹{property.price}</p>
-        <p>
-          {property.bedrooms} Bedrooms | {property.bathrooms} Bathrooms | {property.area} Sq. Ft.
-        </p>
-        <p>Type: {property.type}</p>
-        <p>Status: {property.status}</p>
-        {/* Displaying property image */}
-        <img
-          src={property.image}
-          alt={property.address}
-          style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '10px' }}
-        />
-      </li>
-    ))}
-  </ul>
-</div>
-
-
-
-
+      {/* Properties List Section as a separate component */}
+      <PropertiesSection
+        selectedLocationProperties={selectedLocationProperties}
+        selectedCityProperties={selectedCityProperties}
+        filterStatus={filterStatus}
+        showFilter={showFilter}
+        handleStatusFilterChange={handleStatusFilterChange}
+        filteredProperties={filteredProperties}
+        clickedLocations={clickedLocations}
+        selectedCity={selectedCity}
+        handleSeeDetails={handleSeeDetails}
+      />
 
       {/* Price Legend */}
       {showLegend && (

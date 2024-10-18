@@ -35,6 +35,7 @@ Bangalore: [
       mostVisited: true,
       properties: [  // Add properties under each location
         {
+          id: 1,
           address: '123 Main St, Whitefield',
           price: 2500000,
           bedrooms: 3,
@@ -45,6 +46,7 @@ Bangalore: [
           image: property_1
         },
         {
+          id: 2,
           address: '456 Park Ave, Whitefield',
           price: 3400000,
           bedrooms: 4,
@@ -55,6 +57,7 @@ Bangalore: [
           image: property_2
         },
         {
+          id: 3,
           address: '456 Park Ave, Whitefield',
           price: 3400000,
           bedrooms: 4,
@@ -78,7 +81,8 @@ Bangalore: [
       nearSchools: true,
       mostVisited: true,
       properties: [
-          {
+        {
+            id: 4,
             address: '789 Elm St, Koramangala',
             price: 2800000,
             bedrooms: 3,
@@ -88,7 +92,8 @@ Bangalore: [
             status: 'For Rent',
             image: property_4
           },
-          {
+        {
+            id: 5,
             address: '654 Oak St, Koramangala',
             price: 3200000,
             bedrooms: 4,
@@ -98,7 +103,8 @@ Bangalore: [
             status: 'For Sale',
             image: property_5
           },
-          {
+        {
+            id: 6,
             address: '987 Pine St, Koramangala',
             price: 1500000,
             bedrooms: 2,
