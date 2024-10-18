@@ -1,42 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* Style the container that holds all dropdowns */
 .dropdowns-overlay {
-  /* position: sticky; */
-  /* background-color: rgba(255, 255, 255, 0.8); */
+  /* position: sticky;
+  background-color: rgba(255, 255, 255, 0.8); */
   position: absolute;
   width: 90%;
-  top: 8px;
+  top: 4px;
   left: 700px;
   /* margin-left: 10px; */
   transform: translateX(-50%);
   z-index: 1000;
   display: flex;
+
   /* Allow the row to wrap if needed */
   gap: 20px;
   padding: 10px;
   border-radius: 10px;
   /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); */
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-.toggle-btn {
-  background-color: #656665;
-  padding: 8px 14px 8px 14px;
-  border-radius: 8px;
-  font-size: small;
-  color: white;
-  /* font: bold; */
-  font-weight: bold;
-}
-
-.toggle-btn:hover {
-  background-color: #14532d;
-  font-size: medium;
-  /* font-style: italic; */
-
-  border-radius: 12px;
-}
 /* Style each label */
 .dropdowns-overlay label {
   font-weight: bold;
@@ -44,12 +31,17 @@
   margin-right: 8px;
 }
 
+.txt-btn {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
 /* Style each select dropdown */
 .dropdowns-overlay select {
   padding: 8px;
   font-size: 14px;
   border-radius: 4px;
-  border: 2px solid #14532d;
+  border: 2px solid #007bff;
   background-color: #f9f9f9;
   color: #333;
   outline: none;
@@ -57,7 +49,7 @@
 }
 
 .dropdowns-overlay select:focus {
-  border-color: #14532d;
+  border-color: #0056b3;
   /* box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); */
 }
 
@@ -112,9 +104,9 @@
   left: -320px; /* Hidden initially */
   top: 50%;
   transform: translateY(-50%);
-  width: 300px;
+  /* width: 300px; */
   background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 20px;
@@ -125,7 +117,7 @@
 }
 
 .filter-box.slide-in {
-  left: 10px;
+  left: 2px;
 }
 
 /* Headings inside filter box */
@@ -134,16 +126,21 @@
   margin-bottom: 15px;
   font-weight: bold;
   color: #333;
-  text-align: center;
+  /* text-align: center; */
 }
 
-/* Labels and inputs in the filter box */
+/* Labels inside the filter box */
 .filter-box label {
   font-weight: bold;
-  font-size: 14px;
-  color: #555;
+  font-size: 15px;
+  color: #166534;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   margin-bottom: 8px;
   display: block;
+  /* display: flex;
+  align-items: center;
+  cursor: pointer; */
 }
 
 .filter-box select {
@@ -151,9 +148,12 @@
   padding: 10px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid rgba(0, 123, 255, 0.4);
+  /* border: 1px solid rgba(0, 123, 255, 0.4); */
+  border: 2px solid #14532d;
   background-color: rgba(255, 255, 255, 0.8);
-  color: #333;
+  color: black;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -164,7 +164,21 @@
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
 }
 
-/* Close button for filter box */
+/* Checkbox styling */
+.filter-box input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2); /* Makes checkboxes slightly larger */
+}
+
+/* Subtle hover effect on checkboxes */
+.filter-box label:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 1px;
+  /* transition: background-color 0.3s ease; */
+}
+
+/* Close button */
 .filter-box .close-btn {
   position: absolute;
   top: 10px;
@@ -186,25 +200,23 @@
   background-color: rgba(255, 255, 255, 1);
 }
 
-/* Add spacing between elements in filter box */
+/* Add spacing between each checkbox group */
 .filter-box div {
   margin-bottom: 15px;
 }
 
-/* Make the overall dropdown box more user-friendly */
-.filter-box input,
+/* Box shadow effect on hover */
+.filter-box:hover {
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+}
+/* .filter-box input,
 .filter-box select {
   padding: 10px;
   font-size: 14px;
   width: 100%;
   margin-top: 5px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Add smooth transition effect when hovering over the box */
-.filter-box:hover {
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
-}
+} */
 
 /* General Popup Styling */
 .leaflet-popup-content-wrapper {
@@ -281,8 +293,8 @@
 
 .price-legend {
   position: absolute;
-  top: 85%;
-  left: 7px;
+  top: 80%;
+  left: 10px;
   transform: translateY(-50%);
   background-color: white;
   padding: 10px;
@@ -344,7 +356,8 @@
 /* Custom Zoom Control */
 .leaflet-control-zoom {
   position: absolute;
-  bottom: 500px; /* 30% from the top */
+  top: 70px;
+  /* bottom: 500px; 30% from the top */
   right: 4px; /* Distance from the right */
   background-color: #fff; /* Background color */
   border-radius: 8px; /* Rounded corners */
@@ -390,20 +403,23 @@
   color: #fff;
 }
 
-/* .properties-list {
+.properties-list {
   position: absolute;
   right: 0;
   top: 0;
   width: 30%;
   height: 100%;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   overflow-y: auto;
   padding: 10px;
-  box-shadow: -2px 0px 10px rgba(0,0,0,0.1);
-} */
+  box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
+}
 
 .properties-list h3 {
-  margin-top: 65px;
+  /* margin-left: 24px;
+  margin-top: 65px; */
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .property-item {
@@ -422,7 +438,47 @@
   margin: 5px 0 0;
 }
 
-.leaflet-control-layers-toggle {
-  /* position: absolute; */
-  /* margin-top: 60px; */
+#status-filter {
+  padding: 10px;
+  margin-top: 0px; /* Adjust margins */
+  font-size: 16px;
+  margin-left: 22px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  appearance: none; /* Remove default dropdown arrow */
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#status-filter:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: 34px;
+  height: 40px;
+  border-radius: 15px;
+  position: absolute;
+  top: 150px; /* 30% from the top */
+  right: 4px; /* Distance from the right */
+  background-color: #fff; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+  overflow: hidden; /* Ensures the buttons don't overflow */
+  z-index: 1000;
+}
+
+.leaflet-control-layers-expanded {
+  top: 150px;
+  right: 4px;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 8px;
+  color: black;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }

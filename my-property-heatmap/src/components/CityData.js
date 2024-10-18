@@ -1,3 +1,26 @@
+import property_1 from '../assets/property1.jpg';
+import property_2 from '../assets/property2.jpg';
+import property_3 from '../assets/property3.jpg';
+import property_4 from '../assets/property4.jpg';
+import property_5 from '../assets/property5.jpg';
+import property_6 from '../assets/property6.jpg';
+import property_7 from '../assets/property7.jpg';
+import property_8 from '../assets/property8.jpg';
+import property_9 from '../assets/property9.jpg';
+import property_10 from '../assets/property10.jpg';
+import property_11 from '../assets/property11.jpg';
+import property_12 from '../assets/property12.jpg';
+import property_13 from '../assets/property13.jpg';
+import property_14 from '../assets/property14.jpg';
+import property_15 from '../assets/property15.jpg';
+import property_16 from '../assets/property16.jpg';
+import property_17 from '../assets/property17.jpg';
+import property_18 from '../assets/property18.jpg';
+import property_19 from '../assets/property19.jpg';
+import property_20 from '../assets/property20.jpg';
+import property_21 from '../assets/property21.jpg';
+import property_22 from '../assets/property22.jpg';
+
 export const CityData = {
 Bangalore: [
     {
@@ -12,6 +35,7 @@ Bangalore: [
       mostVisited: true,
       properties: [  // Add properties under each location
         {
+          id: 1,
           address: '123 Main St, Whitefield',
           price: 2500000,
           bedrooms: 3,
@@ -19,9 +43,21 @@ Bangalore: [
           area: 1450, // in square feet
           type: 'Apartment',
           status: 'For Sale',
-          image: "https://example.com/property1.jpg" 
+          image: property_1
         },
         {
+          id: 2,
+          address: '456 Park Ave, Whitefield',
+          price: 3400000,
+          bedrooms: 4,
+          bathrooms: 3,
+          area: 1800, // in square feet
+          type: 'Villa',
+          status: 'For Rent',
+          image: property_2
+        },
+        {
+          id: 3,
           address: '456 Park Ave, Whitefield',
           price: 3400000,
           bedrooms: 4,
@@ -29,7 +65,7 @@ Bangalore: [
           area: 1800, // in square feet
           type: 'Villa',
           status: 'For Sale',
-          image: "https://example.com/property2.jpg" // Example image URL
+          image: property_3
         },
         // Add more properties...
       ]
@@ -46,16 +82,39 @@ Bangalore: [
       mostVisited: true,
       properties: [
         {
-          address: '789 Elm St, Koramangala',
-          price: 2800000,
-          bedrooms: 3,
-          bathrooms: 2,
-          area: 1550, // in square feet
-          type: 'Apartment',
-          status: 'For Rent',
-        },
-        // More properties for Koramangala...
-      ]
+            id: 4,
+            address: '789 Elm St, Koramangala',
+            price: 2800000,
+            bedrooms: 3,
+            bathrooms: 2,
+            area: 1550, // in square feet
+            type: 'Apartment',
+            status: 'For Rent',
+            image: property_4
+          },
+        {
+            id: 5,
+            address: '654 Oak St, Koramangala',
+            price: 3200000,
+            bedrooms: 4,
+            bathrooms: 3,
+            area: 1800, // in square feet
+            type: 'House',
+            status: 'For Sale',
+            image: property_5
+          },
+        {
+            id: 6,
+            address: '987 Pine St, Koramangala',
+            price: 1500000,
+            bedrooms: 2,
+            bathrooms: 1,
+            area: 1100, // in square feet
+            type: 'Apartment',
+            status: 'For Rent',
+            image: property_6
+          }
+        ]
     },
     {
       name: 'Indiranagar',
@@ -67,6 +126,29 @@ Bangalore: [
       nearHospitals: true,
       nearSchools: true,
       mostVisited: false,
+              properties: [
+          {
+            address: '1234 Maple St, Indiranagar',
+            price: 3500000,
+            bedrooms: 4,
+            bathrooms: 3,
+            area: 2000, // in square feet
+            type: 'Villa',
+            status: 'For Sale',
+            image: property_7
+          },
+          {
+            address: '789 Birch St, Indiranagar',
+            price: 2700000,
+            bedrooms: 3,
+            bathrooms: 2,
+            area: 1600, // in square feet
+            type: 'House',
+            status: 'For Sale',
+            image: property_8
+          }
+        ]
+
     },
     {
       name: 'HSR Layout',
@@ -78,6 +160,29 @@ Bangalore: [
       nearHospitals: true,
       nearSchools: false,
       mostVisited: true,
+              properties: [
+          {
+            address: '432 Cedar St, HSR Layout',
+            price: 2500000,
+            bedrooms: 3,
+            bathrooms: 2,
+            area: 1700, // in square feet
+            type: 'Apartment',
+            status: 'For Rent',
+            image: property_9
+          },
+          {
+            address: '1010 Redwood St, HSR Layout',
+            price: 3000000,
+            bedrooms: 4,
+            bathrooms: 3,
+            area: 1900, // in square feet
+            type: 'House',
+            status: 'For Sale',
+            image: property_10
+          }
+        ]
+
     },
     {
       name: 'Hebbal',
@@ -89,6 +194,28 @@ Bangalore: [
       nearHospitals: false,
       nearSchools: true,
       mostVisited: false,
+      properties: [
+          {
+            address: '852 Palm St, Hebbal',
+            price: 2400000,
+            bedrooms: 3,
+            bathrooms: 2,
+            area: 1450, // in square feet
+            type: 'Apartment',
+            status: 'For Rent',
+            image: property_11
+          },
+          {
+            address: '678 Spruce St, Hebbal',
+            price: 2800000,
+            bedrooms: 3,
+            bathrooms: 2,
+            area: 1650, // in square feet
+            type: 'House',
+            status: 'For Sale',
+            image: property_12
+          }
+        ]
     },
   ],
   Hyderabad: [
@@ -102,6 +229,28 @@ Bangalore: [
       nearHospitals: true,
       nearSchools: false,
       mostVisited: true,
+      properties: [
+          {
+            address: "123 Gachibowli Street",
+            price: 120000,
+            bedrooms: 3,
+            bathrooms: 2,
+            area: 1500,
+            type: "Apartment",
+            status: "For Sale",
+            image: property_13
+          },
+          {
+            address: "456 Gachibowli Avenue",
+            price: 140000,
+            bedrooms: 4,
+            bathrooms: 3,
+            area: 1800,
+            type: "House",
+            status: "For Sale",
+            image: property_14
+          }
+        ]
     },
     {
       name: 'Banjara Hills',

@@ -14,6 +14,8 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import PriceComparisonChart from "./PriceComparisonChart"; // Import the chart component
 import "mapbox-gl-leaflet";
+import PropertiesSection from "./PropertiesSection";
+import { useNavigate } from "react-router-dom";
 
 const mapboxToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -51,6 +53,7 @@ const Map = ({
   zoomLevel,
   cityCoordinates,
   onMarkerClick,
+  selectedCity,
 }) => {
   const [clickedLocations, setClickedLocations] = useState([]); // Track two clicked locations
   const [showLegend, setShowLegend] = useState(false); // Show or hide the price legend
@@ -58,6 +61,44 @@ const Map = ({
   const [selectedLocationProperties, setSelectedLocationProperties] = useState(
     []
   ); // To store properties for a selected location
+  const [filterStatus, setFilterStatus] = useState([]);
+  const [showFilter, setShowFilter] = useState(false); // Initially hidden
+  const [filterType, setFilterType] = useState([]);
+  const [showType, setShowType] = useState(false); // Initially hidden
+  const navigate = useNavigate(); // Initialize navigate
+
+  const handleSeeDetails = (property) => {
+    console.log("WOrking!!");
+    navigate(`/property-details/${property.id}`); // Use navigate to route to the property details page
+  };
+
+  //Property type filter
+  const handleTypeChangeFilter = (value) => {
+    setFilterType(value);
+  };
+
+  // const filteredPropertiesType = (
+  //   selectedLocationProperties.length > 0
+  //     ? selectedLocationProperties
+  //     : selectedCityProperties
+  // ).filter(
+  //   (property) => filterType.length === 0 || filterType.includes(property.type)
+  // );
+
+  //Property Filter chnages
+  const handleStatusFilterChange = (value) => {
+    setFilterStatus(value); // Set the filter to the selected status
+  };
+
+  const filteredProperties = (
+    selectedLocationProperties.length > 0
+      ? selectedLocationProperties
+      : selectedCityProperties
+  ).filter(
+    (property) =>
+      (filterStatus.length === 0 || filterStatus.includes(property.status)) &&
+      (filterType.length === 0 || filterType.includes(property.type))
+  );
 
   // Function to handle polygon click
   const handlePolygonClick = (location) => {
@@ -68,6 +109,8 @@ const Map = ({
     });
     setShowLegend(true); // Show the legend when a location is clicked
     setSelectedLocationProperties(location.properties || []); // Set properties for the selected location
+    setShowFilter(true); // Show the status filter dropdown
+    setShowType(true);
   };
 
   // Function to handle marker click
@@ -137,7 +180,7 @@ const Map = ({
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="flex">
       {/* Map Section */}
       <MapContainer
         center={mapCenter}
@@ -145,9 +188,8 @@ const Map = ({
         style={{ height: "700px", width: "70%" }}
         zoomControl={false}
       >
-        <ZoomControl position="bottomright" />
+        <ZoomControl position="topright" />
         <SetMapView center={mapCenter} zoom={zoomLevel} />
-
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="Standard View">
             <TileLayer
@@ -183,6 +225,7 @@ const Map = ({
               offset={[0, -10]}
               opacity={1}
               permanent={false}
+              className="rounded-lg py-1 px-2"
             >
               <span>{city}</span>
             </Tooltip>
@@ -195,7 +238,7 @@ const Map = ({
             positions={location.coords}
             color={getColorByPrice(location.prices.current)}
             fillColor={getColorByPrice(location.prices.current)}
-            fillOpacity={0.5}
+            fillOpacity={1}
             weight={2}
             eventHandlers={{ click: () => handlePolygonClick(location) }}
           >
@@ -204,33 +247,55 @@ const Map = ({
               offset={[0, -10]}
               opacity={1}
               permanent={false}
+              className="rounded-xl"
             >
-              <span>{location.name}</span>
+              <span className="text-center font-bold mb-2">
+                {location.name}
+              </span>
             </Tooltip>
             <Popup>
-              <strong>{location.name}</strong>
+              <strong className="text-center font-bold mb-2">
+                {location.name}
+              </strong>
               <div className="price-row">
-                <span className="year">3 Years Ago:</span>
-                <span className="price-highlight">
+                <span className=" text-black text-center mb-1 font-mono font-bold">
+                  3 Years Ago:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.year1} /Sq.ft
                 </span>
               </div>
               <div className="price-row">
-                <span className="year">2 Years Ago:</span>
-                <span className="price-highlight">
+                <span className="text-black text-center mb-1 font-mono font-bold">
+                  2 Years Ago:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.year2} /Sq.ft
                 </span>
               </div>
               <div className="price-row">
-                <span className="year">1 Year Ago:</span>
-                <span className="price-highlight">
+                <span className="text-black text-center mb-1 font-mono font-bold">
+                  1 Year Ago:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.year3} /Sq.ft
                 </span>
               </div>
               <div className="price-row">
-                <span className="year">Current Price:</span>
-                <span className="price-highlight">
+                <span className="text-black text-center mb-1 font-mono font-bold">
+                  Current Price:
+                </span>
+                <span className="text-green-900 font-semibold ml-4 tracking-wider">
                   ₹{location.prices.current} /Sq.ft
+                </span>
+              </div>
+              <div className="price-row message">
+                <span className=" text-center mb-1 mt-1 font-mono font-bold text-gray-500">
+                  {" "}
+                  <span className="text-red-500 font-serif ">Note: </span>{" "}
+                  Please Select other location <br></br> in{" "}
+                  <span className="text-green-900">{selectedCity}</span> to
+                  Compare the Price
                 </span>
               </div>
             </Popup>
@@ -238,76 +303,68 @@ const Map = ({
         ))}
 
         {clickedLocations.length === 2 && (
-          <Popup position={clickedLocations[1].coords[0]}>
+          <Popup
+            position={clickedLocations[1].coords[0]}
+            className="flex-1 w-[356px] bg-white p-2 rounded-lg opacity-95 "
+          >
             <div>
-              <h3>Price Comparison</h3>
+              <h3 className="text-center text-green-800 items-center font-bold font-serif tracking-wider text-lg mb-2">
+                Price Comparison
+              </h3>
               <PriceComparisonChart chartData={generateChartData()} />
-              <h4>Recommendation</h4>
-              <p>{generateRecommendation()}</p>
+              <h4 className="text-center font-semibold font-sans text-red-700 text-lg mt-2">
+                Recommendation
+              </h4>
+              <p className="text-center font-bold mb-2">
+                {generateRecommendation()}
+              </p>
             </div>
           </Popup>
         )}
       </MapContainer>
 
       {/* Properties List Section */}
-      <div
-        className="properties-list"
-        style={{ width: "30%", padding: "20px", overflowY: "scroll" }}
-      >
-        <h3>
-          {selectedLocationProperties.length > 0
-            ? "Properties in Selected Location"
-            : "Properties in Selected City"}
-        </h3>
-        <ul>
-          {(selectedLocationProperties.length > 0
-            ? selectedLocationProperties
-            : selectedCityProperties
-          ).map((property, index) => (
-            <li key={index} className="property-item">
-              <h4>{property.address}</h4>
-              <p>Price: ₹{property.price}</p>
-              <p>
-                {property.bedrooms} Bedrooms | {property.bathrooms} Bathrooms |{" "}
-                {property.area} Sq. Ft.
-              </p>
-              <p>Type: {property.type}</p>
-              <p>Status: {property.status}</p>
-              {/* Displaying property image */}
-              <img
-                src={property.image}
-                alt={property.address}
-                style={{
-                  width: "100%",
-                  height: "150px",
-                  objectFit: "cover",
-                  marginBottom: "10px",
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <PropertiesSection
+        selectedLocationProperties={selectedLocationProperties}
+        selectedCityProperties={selectedCityProperties}
+        filterStatus={filterStatus}
+        filterType={filterType}
+        showFilter={showFilter}
+        showType={showType}
+        handleStatusFilterChange={handleStatusFilterChange}
+        handleTypeChangeFilter={handleTypeChangeFilter}
+        filteredProperties={filteredProperties}
+        clickedLocations={clickedLocations}
+        selectedCity={selectedCity}
+        handleSeeDetails={handleSeeDetails}
+      />
 
       {/* Price Legend */}
       {showLegend && (
-        <div className="price-legend">
-          <h4>Current Price (per Sq. Ft.)</h4>
+        <div className="absolute bottom-0 right-[245px] lg:right-[457px] bg-white p-2 shadow-sm z-[1000] w-62 txt-btn rounded-tl-xl">
+          <h4 className="font-semibold text-center mb-1">
+            Current Price (/Sq. Ft.)
+          </h4>
           <ul>
             <li>
-              <span className="legend-color blue"></span> Below ₹ 7,000
+              <span className="legend-color blue"></span>{" "}
+              <span className="font-light">Below ₹ 7,000</span>
             </li>
             <li>
-              <span className="legend-color green"></span> ₹ 7,000 - ₹ 10,000
+              <span className="legend-color green"></span>{" "}
+              <span className="font-light">₹ 7,000 - ₹ 10,000</span>
             </li>
             <li>
-              <span className="legend-color yellow"></span> ₹ 10,000 - ₹ 15,000
+              <span className="legend-color yellow"></span>{" "}
+              <span className="font-light">₹ 10,000 - ₹ 15,000</span>
             </li>
             <li>
-              <span className="legend-color orange"></span> ₹ 15,000 - ₹ 20,000
+              <span className="legend-color orange"></span>{" "}
+              <span className="font-light">₹ 15,000 - ₹ 20,000</span>
             </li>
             <li>
-              <span className="legend-color red"></span> ₹ 20,000 & Above
+              <span className="legend-color red"></span>{" "}
+              <span className="font-light">₹ 20,000 & Above</span>
             </li>
           </ul>
         </div>
@@ -317,5 +374,3 @@ const Map = ({
 };
 
 export default Map;
-
-//url={`https://api.mapbox.com/styles/v1/shaukinkhan477/cm1ekwijr02j001pj02ecgs56.html?title=view&access_token=pk.eyJ1Ijoic2hhdWtpbmtoYW40NzciLCJhIjoiY20xYWFjOGRiMWh6czJrcXg4NXhrNTEyaSJ9.OoSU40rlpti0a2prBps_1Q&zoomwheel=true&fresh=true#1.85/28.87/15.34/0/75`}
