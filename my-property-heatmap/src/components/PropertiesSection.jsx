@@ -30,9 +30,8 @@ const PropertiesSection = ({
     >
       <h3 className=" mb-8 py-2 text-sm lg:text-lg bg-[#228b22]  text-white tracking-wider items-center rounded-lg  mt-5 text-center ">
         {selectedLocationProperties.length > 0
-          ? `Properties in ${clickedLocations[0]?.name}, ${
-              selectedCity || "Selected City"
-            }`
+          ? `Properties in ${clickedLocations[0]?.name}, ${selectedCity || "Selected City"
+          }`
           : "Please Select a Location in a City to See Properties"}
       </h3>
 
@@ -137,13 +136,15 @@ const PropertiesSection = ({
                 </p>
               </div>
               <div className="flex items-center justify-center mt-2 p-1">
+
                 <Button
                   variant="outlined"
                   color="success"
-                  onClick={handleSeeDetails}
+                  onClick={() => handleSeeDetails(property)} // Pass the property object correctly
                 >
                   Details
                 </Button>
+
               </div>
             </div>
 

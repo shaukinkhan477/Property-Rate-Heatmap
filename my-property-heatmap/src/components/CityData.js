@@ -127,7 +127,8 @@ Bangalore: [
       nearSchools: true,
       mostVisited: false,
               properties: [
-          {
+                {
+            id: 7,
             address: '1234 Maple St, Indiranagar',
             price: 3500000,
             bedrooms: 4,
@@ -137,7 +138,8 @@ Bangalore: [
             status: 'For Sale',
             image: property_7
           },
-          {
+                {
+            id: 8,
             address: '789 Birch St, Indiranagar',
             price: 2700000,
             bedrooms: 3,
@@ -161,7 +163,8 @@ Bangalore: [
       nearSchools: false,
       mostVisited: true,
               properties: [
-          {
+                {
+            id: 9,
             address: '432 Cedar St, HSR Layout',
             price: 2500000,
             bedrooms: 3,
@@ -171,7 +174,8 @@ Bangalore: [
             status: 'For Rent',
             image: property_9
           },
-          {
+                {
+            id: 10,
             address: '1010 Redwood St, HSR Layout',
             price: 3000000,
             bedrooms: 4,
@@ -195,7 +199,8 @@ Bangalore: [
       nearSchools: true,
       mostVisited: false,
       properties: [
-          {
+        {
+            id: 11,
             address: '852 Palm St, Hebbal',
             price: 2400000,
             bedrooms: 3,
@@ -205,7 +210,8 @@ Bangalore: [
             status: 'For Rent',
             image: property_11
           },
-          {
+        {
+            id: 12,
             address: '678 Spruce St, Hebbal',
             price: 2800000,
             bedrooms: 3,

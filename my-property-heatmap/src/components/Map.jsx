@@ -67,10 +67,16 @@ const Map = ({
   const [showType, setShowType] = useState(false); // Initially hidden
   const navigate = useNavigate(); // Initialize navigate
 
-  const handleSeeDetails = (property) => {
-    console.log("WOrking!!");
-    navigate(`/property-details/${property.id}`); // Use navigate to route to the property details page
-  };
+// In your Map.jsx or relevant file:
+const handleSeeDetails = (property) => {
+  if (property && property.id) {
+    console.log("Navigating to Property Details with ID:", property.id);
+    navigate(`/property-details/${property.id}`, { state: { property } }); // Pass the entire property object in the state
+  } else {
+    console.error("Property ID is missing or undefined:", property);
+  }
+};
+
 
   //Property type filter
   const handleTypeChangeFilter = (value) => {
