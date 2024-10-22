@@ -1,35 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-// import useForm from "./hooks/useForm";
+import useForm from "./hooks/useForm";
 import TextField from "./formField/TextField";
 import SubmitButton from "./formField/SubmitButton";
 import SuccessMessage from "./formField/SuccessMessage";
 
-const ContactForm = () => {
-  //   const { formData, isSubmitted, handleChange, handleSubmit } = useForm({
-  //     name: "",
-  //     email: "",
-  //     phone: "",
-  //   });
+const ContactForm = ({ onSubmit = () => {}, address = "", price = "" }) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+  const { formData, isSubmitted, handleChange, handleSubmit } = useForm({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    details: `Address: ${address}\nPrice: ${price}\n`,
+  });
 
-  //   const onFormSubmit = (e) => {
-  //     e.preventDefault(); // Ensure preventDefault is called to avoid form reloading
+  const onFormSubmit = (e) => {
+    e.preventDefault(); // Ensure preventDefault is called to avoid form reloading
 
-  //     if (formData.name && formData.email && formData.phone) {
-  //       // Pass the event object to handleSubmit
-  //       handleSubmit(e); // Call your custom form submit logic
+    if (formData.name && formData.email && formData.phone) {
+      // Pass the event object to handleSubmit
+      handleSubmit(e); // Call your custom form submit logic
 
-  //       if (!isSubmitted) {
-  //         onSubmit(formData); // Pass the form data to the onSubmit callback
-  //       }
-  //     } else {
-  //       alert("Please fill out all required fields.");
-  //     }
-  //   };
+      if (!isSubmitted) {
+        onSubmit(formData); // Pass the form data to the onSubmit callback
+      }
+    } else {
+      alert("Please fill out all required fields.");
+    }
+  };
 
   return (
     <div className="sticky left-7 right-32 w-full md:w-[300px] p-4 shadow-lg bg-[#499f49]">
-      <div className="bg-white rounded-lg p-6 shadow-md">
+      <div className="bg-white rounded-lg p-6 shadow-md txt-btn">
         <h3 className="text-lg font-body font-bold mb-4 text-center">
           <WhatsAppIcon /> Contact our Experts
         </h3>
@@ -57,6 +60,20 @@ const ContactForm = () => {
             onChange={handleChange}
             placeholder="+91 Phone Number"
             required
+          />
+          <TextField
+            type="text"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Message"
+          />
+          <TextField
+            type="text"
+            name="details"
+            value={formData.details}
+            onChange={handleChange}
+            disabled={isDisabled}
           />
           <SubmitButton>Contact Now</SubmitButton>
         </form>

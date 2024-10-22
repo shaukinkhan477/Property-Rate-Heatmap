@@ -740,7 +740,9 @@ const App = () => {
       </div>
       {/* Filter Dropdown - slides in from the left */}
       {showFilter && showFilterBy && (
-        <div className={`filter-box ${showFilter ? "slide-in" : ""}`}>
+        <div
+          className={`filter-box ${showFilter ? "slide-in" : ""} bg-opacity-60`}
+        >
           <h3>Filter by:</h3>
           <div>
             <label>

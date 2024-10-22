@@ -67,16 +67,15 @@ const Map = ({
   const [showType, setShowType] = useState(false); // Initially hidden
   const navigate = useNavigate(); // Initialize navigate
 
-// In your Map.jsx or relevant file:
-const handleSeeDetails = (property) => {
-  if (property && property.id) {
-    console.log("Navigating to Property Details with ID:", property.id);
-    navigate(`/property-details/${property.id}`, { state: { property } }); // Pass the entire property object in the state
-  } else {
-    console.error("Property ID is missing or undefined:", property);
-  }
-};
-
+  // In your Map.jsx or relevant file:
+  const handleSeeDetails = (property) => {
+    if (property && property.id) {
+      console.log("Navigating to Property Details with ID:", property.id);
+      navigate(`/property-details/${property.id}`, { state: { property } }); // Pass the entire property object in the state
+    } else {
+      console.error("Property ID is missing or undefined:", property);
+    }
+  };
 
   //Property type filter
   const handleTypeChangeFilter = (value) => {
@@ -347,7 +346,7 @@ const handleSeeDetails = (property) => {
 
       {/* Price Legend */}
       {showLegend && (
-        <div className="absolute bottom-0 right-[245px] lg:right-[457px] bg-white p-2 shadow-sm z-[1000] w-62 txt-btn rounded-tl-xl">
+        <div className="absolute bottom-0 right-[245px] lg:right-[457px] bg-white p-2 shadow-sm z-[1000] w-62 txt-btn rounded-tl-xl bg-opacity-60">
           <h4 className="font-semibold text-center mb-1">
             Current Price (/Sq. Ft.)
           </h4>

@@ -55,6 +55,8 @@ export const CityData = {
           area: 1450, // in square feet
           type: "Apartment",
           status: "For Sale",
+          school: "4 KM",
+          hospital: "2.5 KM",
           image: property_1,
         },
         {

@@ -37,7 +37,7 @@
 
 // export default PropertyDetails;
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { Link } from "react-router-dom";
@@ -48,8 +48,11 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import BusinessIcon from "@mui/icons-material/Business";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import ContactFormModal from "./ContactFormModal";
 
 const PropertyDetails = () => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate(); // Use useNavigate hook to navigate programmatically
@@ -70,6 +73,16 @@ const PropertyDetails = () => {
     navigate(-1); // Navigate back to the previous route without refreshing
   };
 
+  const closeContactForm = () => setShowContactForm(false);
+  const onContactFormSubmit = () => {
+    setFormSubmitted(true);
+    setShowContactForm(false);
+  };
+
+  const onCalculateClick = () => {
+    setShowContactForm(true);
+  };
+
   return (
     <div>
       <Header />
@@ -83,7 +96,7 @@ const PropertyDetails = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col  w-[65%] rounded-md lg:flex-row justify-evenly items-center ml-9 mr-9 mt-7 mb-5 ">
+      <div className="flex flex-col w-full sm:w-[65%] rounded-md lg:flex-row justify-evenly items-center ml-9 mr-9 mt-7 mb-5 ">
         <div className="txt-btn flex flex-col gap-3 mb-2">
           <h2 className="text-xl">
             Price:
@@ -111,17 +124,20 @@ const PropertyDetails = () => {
             <p className="tracking-wider font-serif font-thin">sqft</p>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-6 shadow-sm  right-1 lg:right-24  items-center  mt-8  py-3 border border-[#2d486f] txt-btn mb-5 px-11 rounded-lg  bg-[#f0f8ff] fixed">
+        <div className="flex flex-col lg:flex-row gap-6 sm:shadow-sm bg-opacity-50 sm:opacity-100 right-1 lg:right-24  items-center  mt-8  py-3 border md:border-[#2d486f] txt-btn mb-5 px-11 rounded-lg  md:bg-[#f0f8ff] fixed">
           <button className="bg-green-900 text-white rounded-lg p-3 hover:bg-green-800 hover:text-black">
             Request a tour
           </button>
-          <button className="border-2 border-green-900 text-green-600 rounded-lg p-3 hover:border-blue-900 hover:text-black ">
+          <button
+            className=" rounded-lg p-3  hover:text-black bg-blue-900 hover:bg-blue-900 text-white"
+            onClick={onCalculateClick}
+          >
             Contact agent
           </button>
         </div>
       </div>
 
-      <div className="flex flex-col  w-[65%] bg-[#f9f9f9] gap-3 mx-9 my-7  rounded-md  text-white">
+      <div className="flex flex-col w-full sm:w-[65%] bg-[#f9f9f9] gap-3 mx-9 my-7  rounded-md  text-white">
         <div className="flex justify-evenly items-center gap-5 mb-5 py-4 ">
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
             <ApartmentIcon size="small" color="success" /> {property.type}
@@ -129,13 +145,18 @@ const PropertyDetails = () => {
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
             <LoyaltyIcon size="small" color="success" /> {property.area} Sqft
           </p>
+          <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
+            <LoyaltyIcon size="small" color="success" /> Hospital{" "}
+            {property.hospital}
+          </p>
         </div>
         <div className="flex justify-evenly items-center mb-5 mx-2 gap-7">
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
             <BusinessIcon size="small" color="success" /> {property.status}
           </p>
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <BusinessIcon size="small" color="success" /> {property.school}
+            <BusinessIcon size="small" color="success" /> School{" "}
+            {property.school}
           </p>
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
             <ConstructionIcon size="small" color="success" />
@@ -143,7 +164,7 @@ const PropertyDetails = () => {
           </p>
         </div>
       </div>
-      <div className="w-[65%] mx-9 my-7">
+      <div className="w-full sm:w-[65%] mx-9 my-7">
         <h2 className="txt-btn text-xl py-4 mx-5 font-bold">What's special</h2>
         <div className="flex gap-7 mx-7">
           <p className="txt-btn bg-[#f0f8ff] py-2 px-4 rounded-xl font-semibold text-green-900">
@@ -167,24 +188,119 @@ const PropertyDetails = () => {
           </p>
         </div>
       </div>
-      <div className="w-[65%] mx-9 my-7">
+      <div className="w-full sm:w-[65%] mx-9 my-7">
         <h2 className="txt-btn text-xl py-4 mx-5 font-bold">
           Facts & features
         </h2>
         <p className="txt-btn mx-7  bg-[#f0f8ff] py-2 px-4 rounded-xl font-semibold text-green-900">
           Swimming pool
         </p>
-        <div>
+        <div className="flex gap-5 justify-between">
           <div>
             <p className="txt-btn mx-9 my-6">Bedrooms & bathrooms</p>
-            <ul className="txt-btn mx-11 text-gray-500">
+
+            <ul className="txt-btn ml-14 text-gray-500 list-disc">
               <li>Bedrooms: {property.bedrooms} </li>
               <li>Bathrooms: {property.bathrooms} </li>
               <li>Puja Room: 1 </li>
             </ul>
+            <p className="txt-btn ml-9 my-6">Heating</p>
+
+            <ul className="txt-btn ml-14 text-gray-500 list-disc">
+              <li className="ml-5">Electric {property.area} </li>
+            </ul>
+          </div>
+          <div>
+            <p className="txt-btn mr-16 my-6">Cooling</p>
+
+            <ul className="txt-btn mr-16 text-gray-500 list-disc">
+              <li className="ml-5">Electric </li>
+            </ul>
+            <div>
+              <p className="txt-btn mr-9 my-6">Features</p>
+
+              <ul className="txt-btn mr-16 text-gray-500 list-disc">
+                <li className="ml-5">Number of fireplaces: 1</li>
+              </ul>
+            </div>
+            <div>
+              <p className="txt-btn mr-9 my-6">Interior area</p>
+
+              <ul className="txt-btn mr-16 text-gray-500 list-disc">
+                <li className="ml-5">Total structure area: {property.area} </li>
+                <li className="ml-5">
+                  Total interior livable area:{property.area} sqft
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p className="txt-btn mx-7 mt-8 bg-[#f0f8ff] py-2 px-4 rounded-xl font-semibold text-green-900">
+          Property
+        </p>
+        <div className="flex gap-5 justify-between">
+          <div>
+            <p className="txt-btn mx-9 my-6">Features </p>
+
+            <ul className="txt-btn ml-14 text-gray-500 list-disc">
+              <li>Has private pool: Yes</li>
+              <li>Pool features: In Ground </li>
+            </ul>
+          </div>
+          <div>
+            <p className="txt-btn mr-16 my-6">Details</p>
+
+            <ul className="txt-btn mr-16 text-gray-500 list-disc">
+              <li className="ml-5">Price: {property.price} </li>
+              <li className="ml-5">size: {property.area} sqft</li>
+              <li className="ml-5">Contact: 8079 82 21 22 / 8588 90 89 88 </li>
+              <li className="ml-5">#{property.address} </li>
+              <li className="ml-5">Year built: 2006 </li>
+            </ul>
+          </div>
+        </div>
+        <p className="txt-btn mx-7 mt-8 bg-[#f0f8ff] py-2 px-4 rounded-xl font-semibold text-green-900">
+          Construction
+        </p>
+        <div className="flex gap-5 justify-between">
+          <div>
+            <p className="txt-btn mx-9 my-6">Type & style </p>
+
+            <ul className="txt-btn ml-14 text-gray-500 list-disc">
+              <li>Home type: SingleFamily</li>
+              <li>Architectural style: English,Traditional </li>
+              <li>Property subtype: Single Family Residence</li>
+            </ul>
+          </div>
+          <div>
+            <p className="txt-btn mr-16 my-6">Materials </p>
+
+            <ul className="txt-btn mr-16 text-gray-500 list-disc">
+              <li className="ml-5">Stone</li>
+              <li className="ml-5">Foundation: Slab </li>
+              <li className="ml-5">Roof: Composition</li>
+            </ul>
+          </div>
+        </div>
+        <p className="txt-btn mx-7 mt-8 bg-[#f0f8ff] py-2 px-4 rounded-xl font-semibold text-green-900">
+          Utilities & green energy
+        </p>
+        <div className="flex gap-5 justify-between">
+          <div>
+            <ul className="txt-btn mt-5 ml-14 text-gray-500 list-disc">
+              <li>Sewer: Septic Tank </li>
+              <li>Water: Well</li>
+            </ul>
           </div>
         </div>
       </div>
+      <ContactFormModal
+        showContactForm={showContactForm}
+        closeContactForm={closeContactForm}
+        onContactFormSubmit={onContactFormSubmit}
+        address={property.address}
+        price={property.price}
+      />
     </div>
   );
 };
