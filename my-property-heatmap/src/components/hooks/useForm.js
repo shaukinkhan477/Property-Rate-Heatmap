@@ -20,7 +20,7 @@ const useForm = (initialValues) => {
       from_name: formData.name,
       from_email: formData.email,
       phone: formData.phone,
-      department_message: `${formData.message} from Heat map property details ${formData.details}`,
+      department_message: `${formData.message} - property details ${formData.details}`,
       to_email: [
         "vijaykr.04.mishra@gmail.com",
         "placementcgc22@gmail.com",

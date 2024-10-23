@@ -1,42 +1,3 @@
-// import React from 'react';
-// import { useParams } from 'react-router-dom';
-// import { CityData } from './CityData'; // Assuming properties are part of CityData
-
-// const PropertyDetails = () => {
-//   const { id } = useParams();
-
-//   // Find the property in CityData using the id
-//   let property = null;
-//   Object.keys(CityData).forEach((city) => {
-//     CityData[city].forEach((location) => {
-//       const foundProperty = location.properties?.find((prop) => prop.id === id);
-//       if (foundProperty) {
-//         property = foundProperty;
-//       }
-//     });
-//   });
-
-//   if (!property) return <h3>Property not found</h3>;
-
-//   return (
-//     <div className="property-details">
-//       <h2>{property.address}</h2>
-//       <p>Price: ₹{property.price}</p>
-//       <p>{property.bedrooms} Bedrooms | {property.bathrooms} Bathrooms | {property.area} Sq. Ft.</p>
-//       <p>Type: {property.type}</p>
-//       <p>Status: {property.status}</p>
-//       <img
-//         src={property.image}
-//         alt={property.address}
-//         style={{ width: '100%', height: '300px', objectFit: 'cover', marginBottom: '10px' }}
-//       />
-//       {/* Add more details if needed */}
-//     </div>
-//   );
-// };
-
-// export default PropertyDetails;
-
 import React, { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Header from "./Header";
@@ -49,10 +10,15 @@ import BusinessIcon from "@mui/icons-material/Business";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ContactFormModal from "./ContactFormModal";
+import TourRequest from "./TourRequest";
+import SchoolIcon from "@mui/icons-material/School";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 
 const PropertyDetails = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [showTourRequest, setShowTourRequest] = useState(false);
+
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate(); // Use useNavigate hook to navigate programmatically
@@ -79,6 +45,12 @@ const PropertyDetails = () => {
     setShowContactForm(false);
   };
 
+  const toggleTourRequest = () => {
+    setShowTourRequest(true); // Open the "Request a Tour" popup
+  };
+
+  const closeTourForm = () => setShowTourRequest(false);
+
   const onCalculateClick = () => {
     setShowContactForm(true);
   };
@@ -87,7 +59,7 @@ const PropertyDetails = () => {
     <div>
       <Header />
       <div className="mt-20 lg:mt-32 mx-5 lg:mx-10 grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <div className="lg:col-span-4 mt-6">
+        <div className="lg:col-span-4 mt-6 ">
           <img
             src={property.image}
             alt={property.address}
@@ -125,7 +97,10 @@ const PropertyDetails = () => {
           </div>
         </div>
         <div className="flex flex-col lg:flex-row gap-6 sm:shadow-sm bg-opacity-50 sm:opacity-100 right-1 lg:right-24  items-center  mt-8  py-3 border md:border-[#2d486f] txt-btn mb-5 px-11 rounded-lg  md:bg-[#f0f8ff] fixed">
-          <button className="bg-green-900 text-white rounded-lg p-3 hover:bg-green-800 hover:text-black">
+          <button
+            className="bg-green-900 text-white rounded-lg p-3 hover:bg-green-800 hover:text-black"
+            onClick={toggleTourRequest}
+          >
             Request a tour
           </button>
           <button
@@ -136,9 +111,8 @@ const PropertyDetails = () => {
           </button>
         </div>
       </div>
-
       <div className="flex flex-col w-full sm:w-[65%] bg-[#f9f9f9] gap-3 mx-9 my-7  rounded-md  text-white">
-        <div className="flex justify-evenly items-center gap-5 mb-5 py-4 ">
+        <div className="flex justify-evenly items-center gap-5 mb-5 py-4 mx-2">
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
             <ApartmentIcon size="small" color="success" /> {property.type}
           </p>
@@ -146,7 +120,7 @@ const PropertyDetails = () => {
             <LoyaltyIcon size="small" color="success" /> {property.area} Sqft
           </p>
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <LoyaltyIcon size="small" color="success" /> Hospital{" "}
+            <LocalHospitalIcon size="small" color="success" /> Hospital{" "}
             {property.hospital}
           </p>
         </div>
@@ -155,8 +129,7 @@ const PropertyDetails = () => {
             <BusinessIcon size="small" color="success" /> {property.status}
           </p>
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <BusinessIcon size="small" color="success" /> School{" "}
-            {property.school}
+            <SchoolIcon size="small" color="success" /> School {property.school}
           </p>
           <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
             <ConstructionIcon size="small" color="success" />
@@ -294,6 +267,25 @@ const PropertyDetails = () => {
           </div>
         </div>
       </div>
+      {/* Request a Tour Modal */}
+      {showTourRequest && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <TourRequest
+            address={property.address}
+            room={property.bedrooms}
+            bath={property.bathrooms}
+            area={property.area}
+            image={property.image}
+            price={property.price}
+            closeTourForm={closeTourForm}
+            showContactForm={showContactForm}
+            closeContactForm={closeContactForm}
+            onContactFormSubmit={onContactFormSubmit}
+          />
+        </div>
+      )}
+
+      {/* Contact Agent Modal */}
       <ContactFormModal
         showContactForm={showContactForm}
         closeContactForm={closeContactForm}
