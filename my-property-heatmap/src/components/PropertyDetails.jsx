@@ -13,6 +13,10 @@ import ContactFormModal from "./ContactFormModal";
 import TourRequest from "./TourRequest";
 import SchoolIcon from "@mui/icons-material/School";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 
 const PropertyDetails = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -59,30 +63,30 @@ const PropertyDetails = () => {
     <div>
       <Header />
       <div className="mt-20 lg:mt-32 mx-5 lg:mx-10 grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <div className="lg:col-span-4 mt-6 ">
+        <div className="lg:col-span-4  ">
           <img
             src={property.image}
             alt={property.address}
             // style={{ width: "100%", height: "auto", marginBottom: "10px" }}
-            className="w-full h-96 object-cover rounded-lg cursor-pointer"
+            className="w-full mt-5 lg:mt-0 ml-6 md:ml-0 h-96 object-cover rounded-lg cursor-pointer"
           />
         </div>
       </div>
-      <div className="flex flex-col w-full sm:w-[65%] rounded-md lg:flex-row justify-evenly items-center ml-9 mr-9 mt-7 mb-5 ">
-        <div className="txt-btn flex flex-col gap-3 mb-2">
-          <h2 className="text-xl">
+      <div className="flex flex-col w-full sm:w-[65%] bg-[#f9f9f9]  rounded-md lg:flex-row justify-evenly items-center ml-9 mr-9 mt-7 mb-5 ">
+        <div className="txt-btn flex flex-col gap-3 mb-2  py-3">
+          <h2 className="text-xl ">
             Price:
             <CurrencyRupeeIcon size="small" color="success" />{" "}
             <span className="text-green-700">{property.price}</span>
           </h2>
-          <p className="text-lg ml-4"># {property.address}</p>
-          <div className="txt-btn bg-[#f9f9f9] text-center p-1 rounded-xl text-lg cursor-pointer text-[#ff3520] hover:text-black">
+          <p className="text-lg ml-4 mt-2"># {property.address}</p>
+          <div className="txt-btn bg-[#f9f9f9] text-center mt-2 p-1 rounded-xl text-lg cursor-pointer text-[#ff3520] hover:text-black">
             <Link to="https://affordable-cal.vercel.app/">
               <p>Estimate Calculator</p>
             </Link>
           </div>
         </div>
-        <div className="flex  gap-4  justify-between items-center mb-2">
+        <div className="flex  gap-4  justify-between items-center mb-6 mr-9 ml-9">
           <div className="flex flex-col justify-between items-center">
             <p className="txt-btn text-lg">{property.bedrooms}</p>
             <p className="tracking-wider font-serif font-thin">Bed</p>
@@ -96,7 +100,32 @@ const PropertyDetails = () => {
             <p className="tracking-wider font-serif font-thin">sqft</p>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-6 sm:shadow-sm bg-opacity-50 sm:opacity-100 right-1 lg:right-24  items-center  mt-8  py-3 border md:border-[#2d486f] txt-btn mb-5 px-11 rounded-lg  md:bg-[#f0f8ff] fixed">
+        <div className="flex  gap-4  justify-between items-center  mb-2 mr-9 ml-9">
+          <div className="flex flex-col justify-between items-center">
+            <p className="txt-btn text-lg">
+              <ApartmentIcon size="small" color="success" />
+            </p>
+            <p className="tracking-wider font-serif font-thin">
+              {property.type}
+            </p>
+          </div>
+          <div className="flex flex-col justify-between items-center">
+            <p className="txt-btn text-lg">
+              <BusinessIcon size="small" color="success" />{" "}
+            </p>
+            <p className="tracking-wider font-serif font-thin">
+              {property.status}
+            </p>
+          </div>
+          <div className="flex flex-col justify-between items-center">
+            <p className="txt-btn text-lg tracking-widest">
+              <ConstructionIcon size="small" color="success" />
+            </p>
+            <p className="tracking-wider font-serif font-thin">Built in 2023</p>
+          </div>
+        </div>
+
+        <div className="flex lg:w-96  flex-col gap-6 sm:shadow-sm bg-opacity-50 sm:opacity-100 right-1 lg:right-20 py-3 border md:border-[#2d486f] txt-btn top-[74%] px-11 justify-center items-center rounded-lg lg:h-44 mb-12 md:bg-[#f0f8ff]  fixed">
           <button
             className="bg-green-900 text-white rounded-lg p-3 hover:bg-green-800 hover:text-black"
             onClick={toggleTourRequest}
@@ -111,29 +140,33 @@ const PropertyDetails = () => {
           </button>
         </div>
       </div>
+      <div className="w-full sm:w-[65%] mx-9 my-7">
+        <h2 className="txt-btn text-xl  mx-5 font-bold">Near By</h2>
+      </div>
       <div className="flex flex-col w-full sm:w-[65%] bg-[#f9f9f9] gap-3 mx-9 my-7  rounded-md  text-white">
         <div className="flex justify-evenly items-center gap-5 mb-5 py-4 mx-2">
-          <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <ApartmentIcon size="small" color="success" /> {property.type}
+          <p className="bg-gray-400 text-[#1c1a1a] font-bold  w-52 text-center py-2 px-4 txt-btn rounded-lg">
+            <RestaurantIcon size="small" color="success" />
+            Restaurant {property.restaurant}
           </p>
-          <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <LoyaltyIcon size="small" color="success" /> {property.area} Sqft
+          <p className="bg-gray-400 text-[#1c1a1a] font-bold  w-52 text-center py-2 px-4 txt-btn rounded-lg">
+            <StorefrontIcon size="small" color="success" />
+            Super Market {property.market}
           </p>
-          <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <LocalHospitalIcon size="small" color="success" /> Hospital{" "}
-            {property.hospital}
+          <p className="bg-gray-400 text-[#1c1a1a] font-bold  w-52 text-center py-2 px-4 txt-btn rounded-lg">
+            <FitnessCenterIcon size="small" color="success" /> GYM{" "}
+            {property.Gym}
           </p>
         </div>
         <div className="flex justify-evenly items-center mb-5 mx-2 gap-7">
-          <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <BusinessIcon size="small" color="success" /> {property.status}
+          <p className="bg-gray-400 text-[#1c1a1a] font-bold  w-52 text-center py-2 px-4 txt-btn rounded-lg">
+            <DirectionsBusIcon size="small" color="success" /> {property.bus}
           </p>
-          <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
+          <p className="bg-gray-400 text-[#1c1a1a] font-bold w-52 text-center py-2 px-4 txt-btn rounded-lg">
             <SchoolIcon size="small" color="success" /> School {property.school}
           </p>
-          <p className="bg-gray-400 w-52 text-center py-2 px-4 txt-btn rounded-lg">
-            <ConstructionIcon size="small" color="success" />
-            Built in 2023
+          <p className="bg-gray-400 font-bold  text-[#1c1a1a] w-52 text-center py-2 px-4 txt-btn rounded-lg">
+            <LocalHospitalIcon size="small" color="success" /> Hospital{" "}
           </p>
         </div>
       </div>
@@ -149,15 +182,16 @@ const PropertyDetails = () => {
         </div>
         <div>
           <p className="py-6 px-3 txt-btn text-gray-500">
-            **Charming 4-Bedroom Home in Conroe, TX – Priced to Sell!** Gated
-            estate just 13 minutes from The Woodlands Mall, this spacious
-            4-bedroom, 4.5-bathroom home offers the perfect blend of convenience
-            and privacy. Sitting on a generous half-acre lot, the property
-            features a swimming pool, perfect for Texas summers. The home is in
-            need of some TLC and can benefit from light cosmetic updates, making
-            it an ideal opportunity for buyers looking to add their personal
-            touch. Priced below market value, this home is a fantastic
-            investment in a prime location. Don't miss out on this rare find!
+            **Charming {property.bedrooms}-Bedroom Home in Conroe, TX – Priced
+            to Sell!** Gated estate just 13 minutes from The Woodlands Mall,
+            this spacious {property.bedrooms} -bedroom, {property.bathrooms}
+            -bathroom home offers the perfect blend of convenience and privacy.
+            Sitting on a generous half-acre lot, the property features a
+            swimming pool, perfect for Texas summers. The home is in need of
+            some TLC and can benefit from light cosmetic updates, making it an
+            ideal opportunity for buyers looking to add their personal touch.
+            Priced below market value, this home is a fantastic investment in a
+            prime location. Don't miss out on this rare find!
           </p>
         </div>
       </div>

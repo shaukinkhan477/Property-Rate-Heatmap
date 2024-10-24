@@ -22,11 +22,11 @@ const useForm = (initialValues) => {
       phone: formData.phone,
       department_message: `${formData.message} - property details ${formData.details}`,
       to_email: [
-        "vijaykr.04.mishra@gmail.com",
-        "placementcgc22@gmail.com",
-        // "pankaj.saini@reecocefe.in",
-        // "ccc@astoundand.com",
-        // "and.ccc2023@gmail.com",
+        // "vijaykr.04.mishra@gmail.com",
+        // "placementcgc22@gmail.com",
+        "pankaj.saini@reecocefe.in",
+        "ccc@astoundand.com",
+        "and.ccc2023@gmail.com",
       ],
     };
 

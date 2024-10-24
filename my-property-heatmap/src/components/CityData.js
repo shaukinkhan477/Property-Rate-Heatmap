@@ -20,6 +20,7 @@ import property_19 from "../assets/property19.jpg";
 import property_20 from "../assets/property20.jpg";
 import property_21 from "../assets/property21.jpg";
 import property_22 from "../assets/property22.jpg";
+import { Restaurant } from "@mui/icons-material";
 
 export const CityData = {
   Bangalore: [
@@ -57,6 +58,10 @@ export const CityData = {
           status: "For Sale",
           school: "4 KM",
           hospital: "2.5 KM",
+          bus: "7 KM",
+          market: "2 KM",
+          restaurant: "5 KM",
+          Gym: "1 KM",
           image: property_1,
         },
         {
@@ -70,6 +75,10 @@ export const CityData = {
           status: "For Rent",
           image: property_2,
           school: "3 KM",
+          bus: "5 KM",
+          market: "1.6 KM",
+          restaurant: "3.5 KM",
+          Gym: "2 KM",
           hospital: "5 KM",
         },
         {
@@ -84,6 +93,10 @@ export const CityData = {
           image: property_3,
           school: "2.5 KM",
           hospital: "5 KM",
+          market: "1.6 KM",
+          restaurant: "5 KM",
+          Gym: "0.6 KM",
+          bus: "10 KM",
         },
         // Add more properties...
       ],
@@ -122,6 +135,10 @@ export const CityData = {
           image: property_4,
           school: "2 KM",
           hospital: "9 KM",
+          bus: "7 KM",
+          market: "1.6 KM",
+          restaurant: "3.5 KM",
+          Gym: "2 KM",
         },
         {
           id: 5,
@@ -135,6 +152,10 @@ export const CityData = {
           image: property_5,
           school: "6 KM",
           hospital: "12 KM",
+          bus: "3 KM",
+          market: "1.4 KM",
+          restaurant: "3 KM",
+          Gym: "1 KM",
         },
         {
           id: 6,
@@ -148,6 +169,10 @@ export const CityData = {
           image: property_6,
           school: "4 KM",
           hospital: "9 KM",
+          bus: "9 KM",
+          market: "4 KM",
+          restaurant: "2.7 KM",
+          Gym: "2 KM",
         },
       ],
     },
@@ -185,6 +210,10 @@ export const CityData = {
           image: property_7,
           school: "5 KM",
           hospital: "8 KM",
+          bus: "5.4 KM",
+          market: "1.6 KM",
+          restaurant: "3.5 KM",
+          Gym: "2 KM",
         },
         {
           id: 8,
@@ -198,6 +227,10 @@ export const CityData = {
           image: property_8,
           school: "3.7 KM",
           hospital: "8.5 KM",
+          bus: "9.7 KM",
+          market: "2 KM",
+          restaurant: "3 KM",
+          Gym: "2 KM",
         },
       ],
     },
@@ -235,6 +268,10 @@ export const CityData = {
           image: property_9,
           school: "5.4 KM",
           hospital: "5.9 KM",
+          bus: "3.6 KM",
+          market: "1.6 KM",
+          restaurant: "3.5 KM",
+          Gym: "2 KM",
         },
         {
           id: 10,
@@ -248,6 +285,10 @@ export const CityData = {
           image: property_10,
           school: "10 KM",
           hospital: "8 KM",
+          bus: "6.8 KM",
+          market: "5 KM",
+          restaurant: "5 KM",
+          Gym: "2 KM",
         },
       ],
     },
@@ -285,6 +326,10 @@ export const CityData = {
           image: property_11,
           school: "2.5 KM",
           hospital: "5 KM",
+          bus: "7 KM",
+          market: "1.6 KM",
+          restaurant: "3.5 KM",
+          Gym: "2 KM",
         },
         {
           id: 12,
@@ -298,6 +343,10 @@ export const CityData = {
           image: property_12,
           school: "6 KM",
           hospital: "13 KM",
+          bus: "2.5 KM",
+          market: "3 KM",
+          restaurant: "5 KM",
+          Gym: "2 KM",
         },
       ],
     },
